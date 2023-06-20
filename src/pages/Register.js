@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import Header from '../components/Header'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Register({ registerNewUser }) {
+  const navigate = useNavigate();
 
   const [user, setUser] = useState({
     fullName: '',
@@ -18,8 +19,9 @@ export default function Register({ registerNewUser }) {
 
   const handleRegisterNewUser = (e) => {
     e.preventDefault();
-    registerNewUser(user)
-    clearFields()
+    registerNewUser(user);
+    clearFields();
+    navigate('/login')
   }
 
   const clearFields = () => {
