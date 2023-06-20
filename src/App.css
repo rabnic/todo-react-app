@@ -1,3 +1,13 @@
+:root {
+  --dark: #03232e;
+  --red: #fb3c3c;
+  --orage: #fb8b5c;
+  --semi-red: #fc5444;
+  --blueish: #07485e;
+  --gray: #4c5c5c;
+  --green: #00af80;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -29,10 +39,15 @@ header {
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 7vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem
 }
 
 header .container {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 14px;
@@ -41,7 +56,7 @@ header .container {
 header ul {
   display: flex;
   align-items: center;
-  gap: 20px
+  gap: 15px
 }
 
 header ul li {
@@ -49,10 +64,64 @@ header ul li {
 }
 
 .header-icon {
-  width: 40px;
-  height: 40px;
+  width: 25px;
+  height: 25px;
+}
+
+.container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+h1 {
+  color: var(--red)
+}
+
+label {
+  display: block;
+  width: 100%;
+}
+
+label:last-of-type {
+  margin-bottom: 10px;
+}
+
+input {
+  padding: .8rem 1rem;
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  margin-top: 5px;
+  outline: .5px solid var(--semi-red);
+  color: whitesmoke;
+  background: transparent;
+}
+
+form button {
+  padding: .8rem 1rem;
+  background-color: var(--semi-red);
+  border: 0;
+  border-radius: 10px;
+}
+
+.check-done {
+  width: 1em;
+  height: 1em;
+  background: #101010;
+  clip-path: circle(46% at 50% 50%);
+  padding: 5px;
+  border: .5px solid #ddd;
+  /* appearance: none; */
+  outline: none;
+  cursor: pointer;
+  margin-right: 5px;
 }
 
 
-
-
+/* Login */
+#login-status {
+  font-size: 14px;
+  color: red;
+}

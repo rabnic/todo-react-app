@@ -1,13 +1,16 @@
-const Header = () => {
+const Header = ({currentUser, logout}) => {
     return (
         <header>
             <div className="container">
-                <img src='./icons/logo.png' width="60px" height="60px" alt='Logo' className="logo" />
+                <img src='./icons/logo.png' width="30px" height="30px" alt='Logo' className="logo" />
+                {
+                currentUser && 
                 <ul className="">
-                    <li>Nicholas</li>
+                    <li>{currentUser.fullName}</li>
                     <li><img className="header-icon" src="./icons/settings_white.png" alt="User settings icon" /></li>
-                    <li><img className="header-icon" src="./icons/logout.png" alt="User logout icon" /></li>
+                    <li onClick={logout}><img className="header-icon" src="./icons/logout.png" alt="User logout icon" /></li>
                 </ul>
+                }
             </div>
         </header>
     )
