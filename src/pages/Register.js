@@ -9,7 +9,7 @@ export default function Register({ registerNewUser }) {
     fullName: '',
     email: '',
     password: '',
-    tasks: []
+    todos: []
   })
 
   const handleInputChange = (e) => {
