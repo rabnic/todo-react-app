@@ -7,6 +7,8 @@ export default function Home({
   currentUserUpdated,
 }) {
   const todos = currentUser.todos;
+  let currentTodoIndex = -1;
+
   const [todo, setTodo] = useState({
     title: "",
     description: "",
@@ -38,18 +40,23 @@ export default function Home({
 
   const handleUpdateTodo = (e) => {
     e.preventDefault();
-    console.log(todo);
-    const index = parseInt(document.getElementById('index').value);
-    console.log(document.getElementById("index"));
-    todos[index] = todo;
-    // currentUserUpdated({ ...currentUser, todos: todos });
+    todos[parseInt(document.getElementById('index').value)] = todo;
+    currentUserUpdated({ ...currentUser, todos: todos });
+    clearFields()
+    document.getElementById('add-todo-btn').style.display = 'block';
+    document.getElementById('update-todo-btn').style.display = 'none';
   };
 
   const populateTodoForm = (currTodo, index) => {
+    document.getElementById('add-todo-btn').style.display = 'none';
+    document.getElementById('update-todo-btn').style.display = 'block';
+
     document.getElementById("title").value = currTodo.title;
     document.getElementById("description").value = currTodo.description;
     document.getElementById(currTodo.priority).checked = true;
     document.getElementById('index').value = index;
+    document.getElementById('dueDate').value = currTodo.dueDate;
+    currentTodoIndex = index;
     setTodo(currTodo);
   };
 
@@ -65,8 +72,8 @@ export default function Home({
   return (
     <>
       <div className="container home">
-        <h1>Hi, Nicholas</h1>
-        <h2>Here are your todo tasks:</h2>
+        <h1>Hi, {currentUser.fullName}</h1>
+        <h2>Manage and view your todos:</h2>
         <div>
           <form>
             <fieldset>
@@ -151,11 +158,11 @@ export default function Home({
                   }}
                 />
               </label>
-              <input type='text' hidden id='index' />
-              <button type="submit" onClick={handleAddNewTask}>
+              <input type='text' hidden id='index' onChange={(e) => {e.target.value = currentTodoIndex}}/>
+              <button type="submit" onClick={handleAddNewTask} id='add-todo-btn'>
                 Add Todo
               </button>
-              <button onClick={handleUpdateTodo}>Update Todo</button>
+              <button onClick={handleUpdateTodo} id='update-todo-btn'>Update Todo</button>
             </fieldset>
           </form>
         </div>
@@ -169,7 +176,7 @@ export default function Home({
                 <div className="todo-check">
                   <input
                     type="checkbox"
-                    checked={currTodo.isCompleted}
+                    defaultChecked={currTodo.isCompleted}
                     className={`is-completed-check ${currTodo.priority}`}
                     onClick={() => {
                       handleTodoCompleted(index);

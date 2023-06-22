@@ -79,6 +79,7 @@ function App() {
 
   const currentUserUpdated = (updatedUser) => {
     setTodolistDB({...todolistDB, [currentUser.email]: currentUser})
+    console.log('App.js updatedUser', updatedUser);
   }
 
   return (

@@ -146,6 +146,13 @@ form button {
   background-color: var(--semi-red);
   border: 0;
   border-radius: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#update-todo-btn {
+  display: none;
 }
 
 .todos-container {
