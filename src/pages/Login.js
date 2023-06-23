@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { useEffect } from 'react'
-import { useNavigate, useParams, useLocation, Link, Navigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 export default function Login({ login }) {
   // const params = useParams()
