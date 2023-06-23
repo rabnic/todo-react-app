@@ -9,6 +9,8 @@ export default function Home({
   const todos = currentUser.todos;
   let currentTodoIndex = -1;
 
+  const [filterData, setFilterData] = useState(currentUser.todos);
+
   const [todo, setTodo] = useState({
     title: "",
     description: "",
@@ -20,16 +22,13 @@ export default function Home({
 
   const handleAddNewTask = (e) => {
     e.preventDefault();
-    console.log(todos);
     todos.push(todo);
-    console.log(todos);
     setCurrentUser({ ...currentUser, todos: todos });
     clearFields();
   };
 
   const handleDeleteTodo = (todoIndex) => {
     todos.splice(todoIndex, 1);
-    // setCurrentUser({ ...currentUser, todos: todos })
     currentUserUpdated({ ...currentUser, todos: todos });
   };
 
@@ -68,6 +67,34 @@ export default function Home({
     document.getElementById("high").checked = false;
     document.getElementById("dueDate").value = "";
   };
+
+  const filterByPriority = (priority) => {
+    setFilterData(currentUser.todos.filter(obj => {
+      return obj.priority === priority
+    }))
+    console.log(filterData)
+  }
+
+  const filterByComplete = (isComplete) => {
+    setFilterData(currentUser.todos.filter(obj => {
+      return obj.isCompleted === isComplete
+    }))
+    console.log(filterData)
+  }
+
+  const getAll = () => {
+    setFilterData([...currentUser.todos])
+    console.log(filterData)
+  }
+
+  const changeFilterBtnBackground = (e) => {
+    Array.from(e.target.parentNode.children).forEach(btn => {
+      btn.style.backgroundColor = "transparent";
+      btn.style.color = "#ddd";
+    });
+    e.target.style.backgroundColor = '#ddd';
+    e.target.style.color = 'var(--dark)';
+  }
 
   return (
     <>
@@ -158,7 +185,7 @@ export default function Home({
                   }}
                 />
               </label>
-              <input type='text' hidden id='index' onChange={(e) => {e.target.value = currentTodoIndex}}/>
+              <input type='text' hidden id='index' onChange={(e) => { e.target.value = currentTodoIndex }} />
               <button type="submit" onClick={handleAddNewTask} id='add-todo-btn'>
                 Add Todo
               </button>
@@ -166,8 +193,19 @@ export default function Home({
             </fieldset>
           </form>
         </div>
+        <div className="filter-container">
+          <h2>Filter Todos</h2>
+          <div className="filter-btns">
+            <button onClick={(e) => { getAll();changeFilterBtnBackground(e); }}>All</button>
+            <button onClick={(e) => { filterByPriority('low');changeFilterBtnBackground(e); }}>Low</button>
+            <button onClick={(e) => { filterByPriority('medium');changeFilterBtnBackground(e); }}>Medium</button>
+            <button onClick={(e) => { filterByPriority('high');changeFilterBtnBackground(e); }}>High</button>
+            <button onClick={(e) => { filterByComplete(true);changeFilterBtnBackground(e); }}>Completed</button>
+            <button onClick={(e) => { filterByComplete(false);changeFilterBtnBackground(e); }}>Incomplete</button>
+          </div>
+        </div>
         <div className="todos-container">
-          {currentUser.todos.map((currTodo, index) => {
+          {filterData.map((currTodo, index) => {
             return (
               <div
                 className={`todo-card ${currTodo.isCompleted && "completed"}`}
